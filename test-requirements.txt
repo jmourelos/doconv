@@ -1,0 +1,4 @@
+# Top-level dependencies: tox
+tox==1.6.1
+py==1.4.17
+virtualenv==1.10.1

@@ -1,0 +1,7 @@
+# Top-level dependencies: autopep8, pip-tools
+autopep8
+flake8
+mccabe
+pep8
+pip-tools
+pyflakes

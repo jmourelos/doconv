@@ -13,6 +13,7 @@ from tempfile import mkdtemp
 from os import chdir, path
 from shutil import rmtree
 
+
 class TestAsciiDoc(unittest.TestCase):
 
     def setUp(self):
@@ -20,17 +21,17 @@ class TestAsciiDoc(unittest.TestCase):
 
         self.tmp = mkdtemp()
         chdir(self.tmp)
-    
+
     def test_asciidoc_asciidoc_docbook(self):
         converter = AsciiDoc()
         converted_file = converter.convert(path.join(self.initial_dir,
-            "samples/asciidoc.txt"), "asciidoc", "docbook", path.join(self.tmp, "asciidoc.docbook"))
+                                                     "samples/asciidoc.txt"), "asciidoc", "docbook", path.join(self.tmp, "asciidoc.docbook"))
         assert_xml(converted_file)
 
     def test_docbooktodita_docbook_dita(self):
         converter = AsciiDoc()
         converted_file = converter.convert(path.join(self.initial_dir,
-            "samples/docbook.xml"), "docbook", "dita", path.join(self.tmp, "docbook.dita"))
+                                                     "samples/docbook.xml"), "docbook", "dita", path.join(self.tmp, "docbook.dita"))
         assert_xml(converted_file)
 
     def tearDown(self):

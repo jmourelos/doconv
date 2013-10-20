@@ -4,7 +4,7 @@
 """doconv
 
 Usage:
-  doconv <file> <input_format> <output_format>  [--verbose --out-file=<of>] 
+  doconv <file> <input_format> <output_format>  [--verbose --out-file=<of>]
   doconv (-h | --help)
   doconv --version
 
@@ -48,8 +48,8 @@ def create_graph(plugin_graphs):
 
 
 def get_plugin_chain(graph, graph_path):
-    """ Following the graph_path creates an ordered list of the plugins to be called
-        and the input and output format to be used with each plugin
+    """Following the graph_path creates an ordered list of the plugins to be
+       called and the input and output format to be used with each plugin.
     """
     plugin_chain = []
     for node_pos in range(len(graph_path) - 1):
@@ -101,7 +101,7 @@ def execute_plugin_chain(input_file, plugin_chain):
     return output_file
 
 
-def convert(input_file, input_format, output_format, verbose, output_file=None):    
+def convert(input_file, input_format, output_format, verbose, output_file=None):
 
     # load plugins
     mgr = extension.ExtensionManager(
@@ -143,7 +143,8 @@ def convert(input_file, input_format, output_format, verbose, output_file=None):
     tmp_output_file = execute_plugin_chain(input_file, plugin_chain)
 
     if output_file is None:
-        final_output_file_no_ext = path.splitext(path.basename(tmp_output_file))[0]
+        final_output_file_no_ext = path.splitext(
+            path.basename(tmp_output_file))[0]
         output_file = final_output_file_no_ext + '.' + output_format
     shutil.move(tmp_output_file, output_file)
     print(
@@ -154,18 +155,19 @@ def convert(input_file, input_format, output_format, verbose, output_file=None):
 def main():
     # parse CLI arguments
     arguments = docopt(__doc__, version='doconv 0.1.1')
-    input_format = arguments['<input_format>']    
+    input_format = arguments['<input_format>']
     output_format = arguments['<output_format>']
     input_file = arguments['<file>']
     output_file = arguments['--out-file']
-    verbose = arguments['--verbose']    
-    
+    verbose = arguments['--verbose']
+
     try:
         input_file_path = path.abspath(input_file)
-        
+
         if output_file:
             output_file_path = path.abspath(output_file)
-            convert(input_file_path, input_format, output_format, verbose, output_file_path)
+            convert(input_file_path, input_format,
+                    output_format, verbose, output_file_path)
         else:
             convert(input_file_path, input_format, output_format, verbose)
     except Exception as e:

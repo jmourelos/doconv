@@ -23,6 +23,7 @@ class DocBookToDita(base.PluginBase):
                 output_file=None):
         print("docbooktodita plugin converting...")
         current_dir = path.dirname(__file__)
-        xsl_file = path.join(current_dir, "docbooktodita/db2dita/docbook2dita.xsl")
+        xsl_file = path.join(
+            current_dir, "docbooktodita/db2dita/docbook2dita.xsl")
         xslt_process(input_file, output_file, xsl_file)
         return output_file

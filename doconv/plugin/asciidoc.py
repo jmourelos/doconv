@@ -1,6 +1,6 @@
 from doconv.plugin import base
 from networkx import nx
-from doconv.util import shell, check_bin_dependency 
+from doconv.util import shell, check_bin_dependency
 
 
 class AsciiDoc(base.PluginBase):

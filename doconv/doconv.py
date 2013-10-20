@@ -145,7 +145,6 @@ def convert(input_file, input_format, output_format, verbose, output_file=None):
     if output_file is None:
         final_output_file_no_ext = path.splitext(path.basename(tmp_output_file))[0]
         output_file = final_output_file_no_ext + '.' + output_format
-    print(tmp_output_file + " " + str(output_file))    
     shutil.move(tmp_output_file, output_file)
     print(
         "Conversion successful: File {0} generated".format(output_file))
@@ -154,8 +153,7 @@ def convert(input_file, input_format, output_format, verbose, output_file=None):
 
 def main():
     # parse CLI arguments
-    arguments = docopt(__doc__, version='doconv 0.0.1')
-    print(arguments)
+    arguments = docopt(__doc__, version='doconv 0.1.0')
     input_format = arguments['<input_format>']    
     output_format = arguments['<output_format>']
     input_file = arguments['<file>']

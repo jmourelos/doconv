@@ -26,7 +26,7 @@ requires = [
 
 setup(
     name='doconv',
-    version='0.1.0',
+    version='0.1.1',
     description='conversion from AsciiDoc and DocBook to DITA',
     long_description=readme + '\n\n' + history,
     author='Jacob Mourelos',

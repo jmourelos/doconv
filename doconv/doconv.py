@@ -153,7 +153,7 @@ def convert(input_file, input_format, output_format, verbose, output_file=None):
 
 def main():
     # parse CLI arguments
-    arguments = docopt(__doc__, version='doconv 0.1.0')
+    arguments = docopt(__doc__, version='doconv 0.1.1')
     input_format = arguments['<input_format>']    
     output_format = arguments['<output_format>']
     input_file = arguments['<file>']

@@ -22,9 +22,11 @@ from networkx import nx
 import sys
 import os
 from os import path
-import random
-import string
 import shutil
+import logging
+# doconv imports
+import log
+from util import append_random_suffix
 
 
 def choose_best_conversion_path(conversion_graph, input_format, output_format):
@@ -39,7 +41,7 @@ def choose_best_conversion_path(conversion_graph, input_format, output_format):
 
 
 def create_graph(plugin_graphs):
-    """Composes the graphs of the different plugins into an only graph.
+    """Composes the graphs of the different plugins into a single graph.
     """
     G = nx.DiGraph()
     for graph in plugin_graphs:
@@ -60,13 +62,9 @@ def get_plugin_chain(graph, graph_path):
     return plugin_chain
 
 
-def append_random_suffix(filename):
-    suffix = ''.join(random.choice(string.ascii_letters + string.digits)
-                     for n in range(30))
-    return filename + "-" + suffix
-
-
 def get_converter(name):
+    """Returns an instance of the required plugin based on its name.
+    """
     mgr = driver.DriverManager(
         namespace='doconv.converter',
         name=name,
@@ -93,7 +91,7 @@ def execute_plugin_chain(input_file, plugin_chain):
                                         plugin_tuple[2], tmp_output_filename)
 
         input_file = output_file
-        print("Generated temporary file: {0}".format(output_file))
+        logger.debug("Generated temporary file: {0}".format(output_file))
         files_to_remove.append(output_file)
     files_to_remove = files_to_remove[:-1]
     for document in files_to_remove:
@@ -101,7 +99,8 @@ def execute_plugin_chain(input_file, plugin_chain):
     return output_file
 
 
-def convert(input_file, input_format, output_format, verbose, output_file=None):
+def convert(input_file, input_format, output_format, output_file=None):
+    logger = logging.getLogger('root')
 
     # load plugins
     mgr = extension.ExtensionManager(
@@ -114,12 +113,11 @@ def convert(input_file, input_format, output_format, verbose, output_file=None):
     mgr.map_method("check_dependencies")
     # create conversion graph based on found plugins
     conversion_graphs = mgr.map_method("get_supported_conversions_graph")
-    if verbose:
-        print("Loaded plugins: {0}".format(mgr.names()))
+    logger.debug("Loaded plugins: {0}".format(mgr.names()))
     graph = create_graph(conversion_graphs)
-    if verbose:
-        print("Supported formats: {0}".format(graph.nodes()))
-        print("Supported format conversions: {0}".format(graph.edges()))
+
+    logger.debug("Supported formats: {0}".format(graph.nodes()))
+    logger.debug("Supported format conversions: {0}".format(graph.edges()))
     # for now, simplest algorithm to choose a conversion path in the
     # conversion graph
     if input_format not in graph.nodes():
@@ -134,12 +132,10 @@ def convert(input_file, input_format, output_format, verbose, output_file=None):
     conversion_path = choose_best_conversion_path(
         graph, input_format, output_format)
 
-    if verbose:
-        print("Chosen chain of transformations: {0}".format(conversion_path))
+    logger.debug("Chosen chain of transformations: {0}".format(conversion_path))
 
     plugin_chain = get_plugin_chain(graph, conversion_path)
-    if verbose:
-        print("Plugins used for each transformation: {0}".format(plugin_chain))
+    logger.debug("Plugins used for each transformation: {0}".format(plugin_chain))
     tmp_output_file = execute_plugin_chain(input_file, plugin_chain)
 
     if output_file is None:
@@ -161,19 +157,32 @@ def main():
     output_file = arguments['--out-file']
     verbose = arguments['--verbose']
 
+
+    global logger
+    #logger = logging.getLogger(__name__)
+    #logger.setLevel(logging.INFO)
+    #logger.addHandler(logging.StreamHandler())
+    if verbose:
+        #logger.setLevel(logging.DEBUG)
+        log.level = logging.DEBUG
+
+    logger = log.setup_custom_logger('root')
+
     try:
         input_file_path = path.abspath(input_file)
 
         if output_file:
             output_file_path = path.abspath(output_file)
-            convert(input_file_path, input_format,
-                    output_format, verbose, output_file_path)
+            convert(input_file_path, input_format, output_format,
+                    output_file_path)
         else:
-            convert(input_file_path, input_format, output_format, verbose)
+            convert(input_file_path, input_format, output_format)
     except Exception as e:
-        print(e)
-        if verbose:
-            raise
+        if not verbose:
+            print(e)
+        else:
+            logger.exception(e)
+
         sys.exit(1)
 
 

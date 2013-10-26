@@ -5,6 +5,8 @@ from os import path
 import shlex
 import subprocess
 from lxml import etree
+import random
+import string
 
 
 def shell(cmd):
@@ -81,3 +83,9 @@ def check_bin_dependency(program):
                         This program requires {0} to be available
                         """.format(program))
     return binary
+
+def append_random_suffix(filename):
+    suffix = ''.join(random.choice(string.ascii_letters + string.digits)
+                     for n in range(30))
+    return filename + "-" + suffix
+

@@ -51,7 +51,7 @@ def create_graph(plugin_graphs):
 
 def get_plugin_chain(graph, graph_path):
     """Following the graph_path creates an ordered list of the plugins to be
-       called and the input and output format to be used with each plugin.
+    called and the input and output format to be used with each plugin.
     """
     plugin_chain = []
     for node_pos in range(len(graph_path) - 1):
@@ -91,7 +91,6 @@ def execute_plugin_chain(input_file, plugin_chain):
                                         plugin_tuple[2], tmp_output_filename)
 
         input_file = output_file
-        logger.debug("Generated temporary file: {0}".format(output_file))
         files_to_remove.append(output_file)
     files_to_remove = files_to_remove[:-1]
     for document in files_to_remove:
@@ -132,10 +131,12 @@ def convert(input_file, input_format, output_format, output_file=None):
     conversion_path = choose_best_conversion_path(
         graph, input_format, output_format)
 
-    logger.debug("Chosen chain of transformations: {0}".format(conversion_path))
+    logger.debug(
+        "Chosen chain of transformations: {0}".format(conversion_path))
 
     plugin_chain = get_plugin_chain(graph, conversion_path)
-    logger.debug("Plugins used for each transformation: {0}".format(plugin_chain))
+    logger.debug(
+        "Plugins used for each transformation: {0}".format(plugin_chain))
     tmp_output_file = execute_plugin_chain(input_file, plugin_chain)
 
     if output_file is None:
@@ -157,15 +158,10 @@ def main():
     output_file = arguments['--out-file']
     verbose = arguments['--verbose']
 
-
-    global logger
-    #logger = logging.getLogger(__name__)
-    #logger.setLevel(logging.INFO)
-    #logger.addHandler(logging.StreamHandler())
     if verbose:
-        #logger.setLevel(logging.DEBUG)
         log.level = logging.DEBUG
 
+    global logger
     logger = log.setup_custom_logger('root')
 
     try:

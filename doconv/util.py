@@ -84,8 +84,8 @@ def check_bin_dependency(program):
                         """.format(program))
     return binary
 
+
 def append_random_suffix(filename):
     suffix = ''.join(random.choice(string.ascii_letters + string.digits)
                      for n in range(30))
     return filename + "-" + suffix
-

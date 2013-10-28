@@ -18,10 +18,12 @@ import logging
 from doconv import doconv, log
 from tests.util import assert_xml, get_module_dir
 
+
 class TestDoconv(unittest.TestCase):
-    
+
     @classmethod
     def setUpClass(cls):
+        log.level = logging.DEBUG
         logger = log.setup_custom_logger('root')
         doconv.__dict__['logger'] = logger
 

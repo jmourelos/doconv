@@ -145,7 +145,7 @@ def convert(input_file, input_format, output_format, output_file=None):
         output_file = final_output_file_no_ext + '.' + output_format
     shutil.move(tmp_output_file, output_file)
     print(
-        "Conversion successful: File {0} generated".format(output_file))
+        "Conversion successful: file {0} generated".format(output_file))
     return output_file
 
 

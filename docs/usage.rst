@@ -5,14 +5,15 @@ Usage
 doconv CLI is quite straight-forward to use::
 
   $ doconv
-  
-    Usage:
-      doconv [options] <file> <input_format> <output_format>
-      doconv (-h | --help)
-      doconv --version
+
+.. literalinclude:: ../doconv/doconv.py
+   :start-after: """doconv 
+   :end-before: """
 
 A typical usage of doconv could be::
 
   $ doconv asciidoc_file.txt asciidoc dita
+  $
+  $ Conversion successful: file asciidoc_file.dita generated
 
-That would generate a DITA asciidoc.dita file as result.
+Generating a DITA file as result.

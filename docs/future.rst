@@ -24,6 +24,4 @@ a third party tool for the conversion.
 TODO
 ++++
 
-- Add tests...
-- Refactor a lot...
-- New plugins that could add a lot of formats supported like pandoc or uniconv.
+- New plugins that could add a lot of formats supported like pandoc or unoconv.

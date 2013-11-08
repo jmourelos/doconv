@@ -17,10 +17,6 @@ def shell_output(cmd):
     return subprocess.check_output(shlex.split(cmd))
 
 
-def joinext(base_filename, extension):
-    return '.'.join([base_filename, extension])
-
-
 def change_ext(filename, extension):
     filename_no_ext = path.splitext(filename)[0]
     return joinext(filename_no_ext, extension)
@@ -89,3 +85,7 @@ def append_random_suffix(filename):
     suffix = ''.join(random.choice(string.ascii_letters + string.digits)
                      for n in range(30))
     return filename + "-" + suffix
+
+def get_version():
+    from . import VERSION as version
+    return version

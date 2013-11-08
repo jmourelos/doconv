@@ -25,7 +25,7 @@ import shutil
 import logging
 # doconv imports
 import log
-from util import append_random_suffix
+from util import append_random_suffix, get_version
 
 global logger
 
@@ -152,7 +152,7 @@ def convert(input_file, input_format, output_format, output_file=None):
 
 def main():
     # parse CLI arguments
-    arguments = docopt(__doc__, version='doconv 0.1.1')
+    arguments = docopt(__doc__, version='doconv ' + get_version())
     input_format = arguments['<input_format>']
     output_format = arguments['<output_format>']
     input_file = arguments['<file>']

@@ -24,9 +24,11 @@ requires = [
         'stevedore',
 ]
 
+version = __import__('doconv').VERSION
+
 setup(
     name='doconv',
-    version='0.1.1',
+    version=version,
     description='conversion from AsciiDoc and DocBook to DITA',
     long_description=readme + '\n\n' + history,
     author='Jacob Mourelos',

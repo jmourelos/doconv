@@ -21,13 +21,13 @@ from tests.util import assert_xml, get_module_dir
 
 class TestDoconv(unittest.TestCase):
 
-    @classmethod
-    def setUpClass(cls):
+    def setUp(self):
+        # TODO. Move logger injection to setUpClass method when dropping python
+        # 2.6 support.
         log.level = logging.DEBUG
         logger = log.setup_custom_logger('root')
         doconv.__dict__['logger'] = logger
 
-    def setUp(self):
         self.initial_dir = get_module_dir()
 
         self.tmp = mkdtemp()

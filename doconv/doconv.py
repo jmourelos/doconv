@@ -4,9 +4,8 @@
 """doconv
 
 Usage:
-  doconv <file> <input_format> <output_format>  [--verbose --out-file=<of>]
+  doconv [-ovh] <file> <input_format> <output_format>
   doconv (-h | --help)
-  doconv --version
 
 Options:
   -o --out-file=<of>  File generated as output of the conversion.
@@ -28,6 +27,7 @@ import logging
 import log
 from util import append_random_suffix
 
+global logger
 
 def choose_best_conversion_path(conversion_graph, input_format, output_format):
     try:
@@ -35,14 +35,27 @@ def choose_best_conversion_path(conversion_graph, input_format, output_format):
             conversion_graph, input_format, output_format)
     except nx.NetworkXNoPath:
         raise Exception("""
-        No cambination of plugins available in doconv is able to convert from
+        No combination of plugins available in doconv can convert from
         {0} to {1}""".format(input_format, output_format))
     return graph_path if conversion_graph is not None else None
 
 
-def create_graph(plugin_graphs):
+def create_graph():
     """Composes the graphs of the different plugins into a single graph.
     """
+    # load plugins
+    mgr = extension.ExtensionManager(
+        namespace='doconv.converter',
+        invoke_on_load=True,
+        propagate_map_exceptions=True,
+    )
+
+    # check that all plugin dependencies are installed
+    mgr.map_method("check_dependencies")
+    # create conversion graph based on found plugins
+    plugin_graphs = mgr.map_method("get_supported_conversions_graph")
+    logger.debug("Loaded plugins: {0}".format(mgr.names()))
+
     G = nx.DiGraph()
     for graph in plugin_graphs:
         G = nx.compose(G, graph)
@@ -99,26 +112,12 @@ def execute_plugin_chain(input_file, plugin_chain):
 
 
 def convert(input_file, input_format, output_format, output_file=None):
-    logger = logging.getLogger('root')
 
-    # load plugins
-    mgr = extension.ExtensionManager(
-        namespace='doconv.converter',
-        invoke_on_load=True,
-        propagate_map_exceptions=True,
-    )
-
-    # check that all plugin dependencies are installed
-    mgr.map_method("check_dependencies")
-    # create conversion graph based on found plugins
-    conversion_graphs = mgr.map_method("get_supported_conversions_graph")
-    logger.debug("Loaded plugins: {0}".format(mgr.names()))
-    graph = create_graph(conversion_graphs)
+    graph = create_graph()
 
     logger.debug("Supported formats: {0}".format(graph.nodes()))
     logger.debug("Supported format conversions: {0}".format(graph.edges()))
-    # for now, simplest algorithm to choose a conversion path in the
-    # conversion graph
+
     if input_format not in graph.nodes():
         raise Exception("Error: Not supported input format: {0}".
                         format(input_format))
@@ -128,6 +127,8 @@ def convert(input_file, input_format, output_format, output_file=None):
     if input_format == output_format:
         raise Exception("Error: Same input and output formats specified")
 
+    # for now, simplest algorithm to choose a conversion path in the
+    # conversion graph
     conversion_path = choose_best_conversion_path(
         graph, input_format, output_format)
 
@@ -161,7 +162,6 @@ def main():
     if verbose:
         log.level = logging.DEBUG
 
-    global logger
     logger = log.setup_custom_logger('root')
 
     try:

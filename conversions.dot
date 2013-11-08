@@ -1,0 +1,4 @@
+strict digraph "compose( ,  )" {
+	asciidoc -> docbook	 [plugin=asciidoc];
+	docbook -> dita	 [plugin=docbooktodita];
+}

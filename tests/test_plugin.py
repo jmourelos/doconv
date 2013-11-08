@@ -19,12 +19,12 @@ from tests.util import assert_xml, get_module_dir
 
 class TestPlugin(unittest.TestCase):
 
-    @classmethod
-    def setUpClass(cls):
+    def setUp(self):
+        # TODO. Move logger injection to setUpClass method when dropping python
+        # 2.6 support.
         log.level = logging.DEBUG
         log.setup_custom_logger('root')
 
-    def setUp(self):
         self.initial_dir = get_module_dir()
 
         self.tmp = mkdtemp()

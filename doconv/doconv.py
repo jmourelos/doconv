@@ -4,7 +4,7 @@
 """doconv
 
 Usage:
-  doconv [-ovh] <file> <input_format> <output_format>
+  doconv [options] <file> <input_format> <output_format>
   doconv (-h | --help)
 
 Options:
@@ -28,6 +28,8 @@ import log
 from util import append_random_suffix, get_version
 
 global logger
+logger = log.setup_custom_logger('root')
+
 
 def choose_best_conversion_path(conversion_graph, input_format, output_format):
     try:
@@ -160,9 +162,7 @@ def main():
     verbose = arguments['--verbose']
 
     if verbose:
-        log.level = logging.DEBUG
-
-    logger = log.setup_custom_logger('root')
+        logger.setLevel(logging.DEBUG)
 
     try:
         input_file_path = path.abspath(input_file)

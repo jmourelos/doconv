@@ -16,6 +16,7 @@ from shutil import rmtree
 import logging
 # doconv imports
 from doconv import doconv, log
+from doconv.util import append_random_suffix
 from tests.util import assert_xml, get_module_dir
 
 
@@ -33,22 +34,31 @@ class TestDoconv(unittest.TestCase):
         self.tmp = mkdtemp()
         chdir(self.tmp)
 
+    def get_sample(self, sample_filename):
+        return path.join(self.initial_dir, "samples", sample_filename)
+
+    def generate_output_filename(self):
+        return path.join(self.tmp, append_random_suffix())
+
     def test_convert_asciidoc_docbook(self):
         converter = doconv
-        converted_file = converter.convert(path.join(self.initial_dir,
-                                                     "samples/asciidoc.txt"), "asciidoc", "docbook", path.join(self.tmp, "asciidoc.docbook"))
+        converted_file = converter.convert(self.get_sample("asciidoc.txt"),
+                                           "asciidoc", "docbook",
+                                           self.generate_output_filename())
         assert_xml(converted_file)
 
     def test_convert_docbook_dita(self):
         converter = doconv
-        converted_file = converter.convert(path.join(self.initial_dir,
-                                                     "samples/docbook.xml"), "docbook", "dita", path.join(self.tmp, "docbook.dita"))
+        converted_file = converter.convert(self.get_sample("docbook.xml"),
+                                           "docbook", "dita",
+                                           self.generate_output_filename())
         assert_xml(converted_file)
 
     def test_convert_asciidoc_dita(self):
         converter = doconv
-        converted_file = converter.convert(path.join(self.initial_dir,
-                                                     "samples/asciidoc.txt"), "asciidoc", "dita", path.join(self.tmp, "asciidoc.dita"))
+        converted_file = converter.convert(self.get_sample("asciidoc.txt"),
+                                           "asciidoc", "dita",
+                                           self.generate_output_filename())
         assert_xml(converted_file)
 
     def tearDown(self):

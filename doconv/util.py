@@ -17,11 +17,6 @@ def shell_output(cmd):
     return subprocess.check_output(shlex.split(cmd))
 
 
-def change_ext(filename, extension):
-    filename_no_ext = path.splitext(filename)[0]
-    return joinext(filename_no_ext, extension)
-
-
 def xslt_process(input_filename, output_filename, xsl_file):
 
     xml_input = etree.parse(input_filename)
@@ -81,10 +76,11 @@ def check_bin_dependency(program):
     return binary
 
 
-def append_random_suffix(filename):
+def append_random_suffix(filename=""):
     suffix = ''.join(random.choice(string.ascii_letters + string.digits)
                      for n in range(30))
     return filename + "-" + suffix
+
 
 def get_version():
     from . import VERSION as version

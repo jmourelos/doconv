@@ -14,6 +14,7 @@ from doconv.plugin.asciidoc import AsciiDoc
 from doconv.plugin.docbooktodita import DocBookToDita
 from doconv import log
 import logging
+from doconv.util import append_random_suffix
 from tests.util import assert_xml, get_module_dir
 
 
@@ -30,16 +31,24 @@ class TestPlugin(unittest.TestCase):
         self.tmp = mkdtemp()
         chdir(self.tmp)
 
+    def get_sample(self, sample_filename):
+        return path.join(self.initial_dir, "samples", sample_filename)
+
+    def generate_output_filename(self):
+        return path.join(self.tmp, append_random_suffix())
+
     def test_asciidoc_asciidoc_docbook(self):
         converter = AsciiDoc()
-        converted_file = converter.convert(path.join(self.initial_dir,
-                                                     "samples/asciidoc.txt"), "asciidoc", "docbook", path.join(self.tmp, "asciidoc.docbook"))
+        converted_file = converter.convert(self.get_sample("asciidoc.txt"),
+                                           "asciidoc", "docbook",
+                                           self.generate_output_filename())
         assert_xml(converted_file)
 
     def test_docbooktodita_docbook_dita(self):
         converter = DocBookToDita()
-        converted_file = converter.convert(path.join(self.initial_dir,
-                                                     "samples/docbook.xml"), "docbook", "dita", path.join(self.tmp, "docbook.dita"))
+        converted_file = converter.convert(self.get_sample("docbook.xml"),
+                                           "docbook", "dita",
+                                           self.generate_output_filename())
         assert_xml(converted_file)
 
     def tearDown(self):

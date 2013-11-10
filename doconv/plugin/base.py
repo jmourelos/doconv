@@ -18,9 +18,9 @@ class PluginBase(object):
         return
 
     def get_supported_conversions_graph(self):
-        ###Return a graph representing the format conversions
-        ###provided by the plugin.
-        
+        # Return a graph representing the format conversions
+        # provided by the plugin.
+
         if not hasattr(self, 'conversions_graph'):
             self.conversions_graph = self._generate_graph()
         return self.conversions_graph
@@ -39,9 +39,9 @@ class PluginBase(object):
 
     def _generate_graph(self):
         """Generate a directed graph where each node is a document format.
-        The representation of a node pointing to another (e.g. from '.doc' to '.odt')
-        is called edge and it will contain the name of the plugin being able to
-        perform the conversion.
+        The representation of a node pointing to another (e.g. from '.doc' to
+        '.odt') is called edge and it will contain the name of the plugin being
+        able to perform the conversion.
         The graph is the representation of all the format conversions provided
         by this plugin.
         """
@@ -56,7 +56,7 @@ class PluginBase(object):
         a list of the formats in the original list.
         """
         nodes = list(set(format for conversion in edges for format in
-            conversion))
+                         conversion))
         return nodes
 
     def _get_module_name(self):

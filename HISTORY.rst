@@ -17,3 +17,11 @@ Release History
 
 * Fix several installation issues.
 * Remove temporarily python 3 support.
+
+0.1.2 (2013-11-09)
+++++++++++++++++++
+
+* Expand and improve documentation.
+* Proper logging (available using --verbose CLI option).
+* News plugins are now easier to develop.
+

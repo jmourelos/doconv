@@ -1,16 +1,21 @@
-# Config file for automatic testing at travis-ci.org
+### Config file for automatic testing at travis-ci.org
 
 language: python
 
 python:
+  - "3.3"
   - "2.7"
   - "2.6"
   - "pypy"
 
-# command to install external dependencies
-before_install: sudo apt-get install asciidoc
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+### command to install external dependencies
+# using sudo instead of rvmsudo was causing some PATH problems:
+# see http://stackoverflow.com/questions/6278047/could-not-find-rails-0-amongst-gemloaderror
+before_install:
+  - sudo apt-get install asciidoc rubygems
+  - rvmsudo gem install asciidoctor
+### command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -r requirements.txt --use-mirrors
 
-# command to run tests, e.g. python setup.py test
+### command to run tests, e.g. python setup.py test
 script: python setup.py test

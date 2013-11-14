@@ -37,6 +37,11 @@ class PluginBase(object):
         """
         return
 
+    def _get_plugin_priority(self):
+        """To be overridden by plugins.
+        """
+        return 0
+
     def _generate_graph(self):
         """Generate a directed graph where each node is a document format.
         The representation of a node pointing to another (e.g. from '.doc' to
@@ -45,9 +50,11 @@ class PluginBase(object):
         The graph is the representation of all the format conversions provided
         by this plugin.
         """
-        G = nx.DiGraph()
+        G = nx.MultiDiGraph()
         conversions = self.get_supported_conversions()
-        G.add_nodes_from(self._get_nodes_from_edges(conversions))
+        self._add_priority_to_conversions(
+            self._get_plugin_priority(), conversions)
+
         G.add_edges_from(conversions, plugin=self._get_module_name())
         return G
 
@@ -58,6 +65,13 @@ class PluginBase(object):
         nodes = list(set(format for conversion in edges for format in
                          conversion))
         return nodes
+
+    def _add_priority_to_conversions(self, priority, conversions):
+        for i, conversion in enumerate(conversions):
+            if len(conversion) == 2:
+                conversions[i] = conversion + \
+                    tuple([dict({"priority": priority})])
+        return conversions
 
     def _get_module_name(self):
         """Get the name of the module containing the class inheriting from this

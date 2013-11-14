@@ -6,6 +6,7 @@ if [[ "$VIRTUAL_ENV" != "" ]]; then
     pip install -r requirements.txt
     pip install -r test-requirements.txt
     py.test doconv/generate_conversions.py
+    sed -i 's|plugin=|label=|g' conversions.dot
 else
     "A virtualenv environment is required to run this script"
     exit 1

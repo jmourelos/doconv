@@ -6,25 +6,8 @@ Installation
 Pre-requisites
 ==============
 
-asciidoc_ should be installed:
-
-.. _asciidoc: http://www.methods.co.nz/asciidoc/manpage.html
-
-Arch Linux:: 
-
-  $ pacman -S asciidoc
-
-Debian/Ubuntu::
-
-  $ apt-get install asciidoc
-
-CentOS/Fedora:: 
-
-  $ yum install asciidoc
-
-
-See `asciidoc website <http://www.methods.co.nz/asciidoc/INSTALL.html#X2>`_ for
-more information.
+Pre-requisites are not enforced by doconv, but many plugins need some to be
+enabled. See the :ref:`plugins section <plugins>` for more information.
 
 
 Basic Installation

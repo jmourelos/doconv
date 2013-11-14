@@ -38,7 +38,9 @@ import doconv
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'sphinx.ext.graphviz']
-graphviz_dot_args = ''
+
+# Set font size for labels edges and horizontal display. See 'man dot' for more information.
+graphviz_dot_args = ['-Grankdir=LR', '-Efontsize=8',]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

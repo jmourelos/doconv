@@ -5,12 +5,14 @@
 Tests for `plugin` package.
 """
 
-import unittest
+import pytest
+import sys
 from tempfile import mkdtemp
 from os import chdir, path
 from shutil import rmtree
 # doconv imports
 from doconv.plugin.asciidoc import AsciiDoc
+from doconv.plugin.asciidoctor import AsciiDoctor
 from doconv.plugin.docbooktodita import DocBookToDita
 from doconv import log
 import logging
@@ -18,16 +20,20 @@ from doconv.util import append_random_suffix
 from tests.util import assert_xml, get_module_dir
 
 
-class TestPlugin(unittest.TestCase):
+skipifPy3 = pytest.mark.skipif(sys.version_info >= (3, 0),
+                               reason="Python 3 is not supported for \
+                                        this plugin.")
 
-    def setUp(self):
-        # TODO. Move logger injection to setUpClass method when dropping python
-        # 2.6 support.
-        log.level = logging.DEBUG
-        log.setup_custom_logger('root')
 
+def setup_module(module):
+    log.level = logging.DEBUG
+    log.setup_custom_logger('root')
+
+
+class TestPlugin():
+
+    def setup(self):
         self.initial_dir = get_module_dir()
-
         self.tmp = mkdtemp()
         chdir(self.tmp)
 
@@ -37,8 +43,16 @@ class TestPlugin(unittest.TestCase):
     def generate_output_filename(self):
         return path.join(self.tmp, append_random_suffix())
 
+    @skipifPy3
     def test_asciidoc_asciidoc_docbook(self):
         converter = AsciiDoc()
+        converted_file = converter.convert(self.get_sample("asciidoc.txt"),
+                                           "asciidoc", "docbook",
+                                           self.generate_output_filename())
+        assert_xml(converted_file)
+
+    def test_asciidoctor_asciidoc_docbook(self):
+        converter = AsciiDoctor()
         converted_file = converter.convert(self.get_sample("asciidoc.txt"),
                                            "asciidoc", "docbook",
                                            self.generate_output_filename())
@@ -51,9 +65,6 @@ class TestPlugin(unittest.TestCase):
                                            self.generate_output_filename())
         assert_xml(converted_file)
 
-    def tearDown(self):
+    def teardown(self):
         chdir(self.initial_dir)
         rmtree(self.tmp)
-
-if __name__ == '__main__':
-    unittest.main()

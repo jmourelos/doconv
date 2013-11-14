@@ -9,12 +9,12 @@ Contents:
    introduction
    features
    installation
+   plugins
    usage
    contributing
    creating_a_plugin
    authors
    history
-   future
 
 Indices and tables
 ==================

@@ -1,4 +1,11 @@
-strict digraph "compose( ,  )" {
-	asciidoc -> docbook	 [plugin=asciidoc];
-	docbook -> dita	 [plugin=docbooktodita];
+digraph  {
+	asciidoc -> docbook [key=0,
+	label=asciidoctor,
+	priority=50];
+asciidoc -> docbook [key=1,
+label=asciidoc,
+priority=60];
+docbook -> dita [key=0,
+label=docbooktodita,
+priority=0];
 }

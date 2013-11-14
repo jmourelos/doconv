@@ -7,6 +7,7 @@ import sys
 
 try:
     from setuptools import setup
+    from setuptools.command.test import test as TestCommand
 except ImportError:
     from distutils.core import setup
 
@@ -25,6 +26,17 @@ requires = [
 ]
 
 version = __import__('doconv').VERSION
+
+class PyTest(TestCommand):
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = ['tests']
+        self.test_suite = True
+    def run_tests(self):
+    #import here, cause outside the eggs aren't loaded
+        import pytest
+        errno = pytest.main(self.test_args)
+        sys.exit(errno)
 
 setup(
     name='doconv',
@@ -52,8 +64,12 @@ setup(
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
     ],
     test_suite='tests',
+    tests_require=['pytest'],
+    cmdclass = {'test': PyTest},
 
     entry_points={
         'console_scripts': [
@@ -61,6 +77,7 @@ setup(
             ],
         'doconv.converter': [
             'asciidoc = doconv.plugin.asciidoc:AsciiDoc',
+            'asciidoctor = doconv.plugin.asciidoctor:AsciiDoctor',
             'docbooktodita = doconv.plugin.docbooktodita:DocBookToDita',
             ],
         },

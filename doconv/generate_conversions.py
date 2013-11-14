@@ -1,5 +1,6 @@
 import doconv
-from doconv import log
+from .doconv import Converter
+from . import log
 from networkx import nx
 
 
@@ -9,8 +10,8 @@ def test_generate_conversions():
     logger = log.setup_custom_logger('root')
     doconv.__dict__['logger'] = logger
 
-    G = doconv.create_graph()
-    nx.write_dot(G, 'conversions.dot')
+    converter = Converter("a", "b")
+    nx.write_dot(converter.graph, 'conversions.dot')
 
     # Generate a dot file instead of svg to minimize the growth of the git
     # repository. Let this code for future reference.

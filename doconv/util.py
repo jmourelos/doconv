@@ -7,6 +7,8 @@ import subprocess
 from lxml import etree
 import random
 import string
+# doconv imports
+from .exceptions import UnsatisfiedDependencyException
 
 
 def shell(cmd):
@@ -70,9 +72,8 @@ def check_bin_dependency(program):
 
     binary = which(program)
     if binary is None:
-        raise Exception("""
-                        This program requires {0} to be available
-                        """.format(program))
+        raise UnsatisfiedDependencyException(
+            "{0} not available".format(program))
     return binary
 
 

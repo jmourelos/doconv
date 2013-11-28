@@ -12,6 +12,7 @@ python:
 # using sudo instead of rvmsudo was causing some PATH problems:
 # see http://stackoverflow.com/questions/6278047/could-not-find-rails-0-amongst-gemloaderror
 before_install:
+  - sudo apt-get update
   - sudo apt-get install asciidoc rubygems
   - rvmsudo gem install asciidoctor
 ### command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors

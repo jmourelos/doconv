@@ -4,3 +4,7 @@ class DoconvException(Exception):
 
 class UnsatisfiedDependencyException(DoconvException):
     pass
+
+
+class FormatException(DoconvException):
+    pass

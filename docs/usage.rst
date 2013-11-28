@@ -6,13 +6,11 @@ doconv CLI is quite straight-forward to use::
 
   $ doconv
 
-.. literalinclude:: ../doconv/doconv.py
-   :start-after: """doconv 
-   :end-before: """
+.. literalinclude:: ../pre_release_generated/doconv_convert_usage.txt
 
 A typical usage of doconv could be::
 
-  $ doconv asciidoc_file.txt asciidoc dita
+  $ doconv convert asciidoc_file.txt asciidoc dita
   $
   $ Conversion successful: file asciidoc_file.dita generated
 

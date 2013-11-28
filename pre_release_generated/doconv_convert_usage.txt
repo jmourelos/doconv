@@ -1,0 +1,12 @@
+usage: doconv convert [-h] [-o OUTPUT_FILE]
+                      <input_file> <input_format> <output_format>
+
+positional arguments:
+  <input_file>          input file to be converted
+  <input_format>        format of <input_file>
+  <output_format>       format to convert <input_file> to
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT_FILE, --output_file OUTPUT_FILE
+                        write output of the conversion to OUTPUT_FILE

@@ -18,6 +18,7 @@ Release History
 * Fix several installation issues.
 * Remove temporarily python 3 support.
 
+
 0.1.2 (2013-11-09)
 ++++++++++++++++++
 
@@ -25,3 +26,9 @@ Release History
 * Proper logging (available using --verbose CLI option).
 * News plugins are now easier to develop.
 
+
+0.1.3 (2013-12-26)
+++++++++++++++++++
+
+* Add asciidoctor plugin.
+* Add doconv command to query available document formats.

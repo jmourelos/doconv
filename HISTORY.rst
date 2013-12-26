@@ -24,7 +24,7 @@ Release History
 
 * Expand and improve documentation.
 * Proper logging (available using --verbose CLI option).
-* News plugins are now easier to develop.
+* New plugins are now easier to develop.
 
 
 0.1.3 (2013-12-26)

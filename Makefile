@@ -46,6 +46,9 @@ docs:
 	$(MAKE) -C docs html
 	open docs/_build/html/index.html
 
+pre-release: lint
+	./pre-release.sh
+
 release: clean
 	python setup.py sdist upload
 

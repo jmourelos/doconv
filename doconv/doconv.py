@@ -45,11 +45,20 @@ class PluginManager(object):
         """Look for all the doconv plugins installed and return only the ones
         having all their dependencies present in the system.
         """
-        mgr = extension.ExtensionManager(
-            namespace='doconv.converter',
-            invoke_on_load=True,
-            propagate_map_exceptions=True,
-        )
+
+        try:
+            mgr = extension.ExtensionManager(
+                namespace='doconv.converter',
+                invoke_on_load=True,
+                propagate_map_exceptions=True,
+            )
+        except TypeError:
+            logger.debug("The installed stevedore version seems to be older than 0.10. This could cause exceptions "
+                         "in plugins to be silently ignored.")
+            mgr = extension.ExtensionManager(
+                namespace='doconv.converter',
+                invoke_on_load=True,
+            )
 
         # only plugins whose dependencies are installed will be used
         plugins = []
@@ -60,7 +69,7 @@ class PluginManager(object):
                 logger.debug("Plugin {0} has been loaded".format(plugin.name))
             except UnsatisfiedDependencyException as e:
                 logger.warn(
-                    "Plugin {0} could not be loaded because of missing"
+                    "Plugin {0} could not be loaded because of missing "
                     "dependencies: {1}".format(plugin.name, e))
         return plugins
 

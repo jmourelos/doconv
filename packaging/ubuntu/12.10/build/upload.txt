@@ -1,0 +1,2 @@
+debuild -S -sa
+dput ppa:doconv-py/ppa /build_out/doconv_0.1.3-1_source.changes

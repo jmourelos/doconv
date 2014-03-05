@@ -1,7 +1,7 @@
 # Maintainer: Jacob Mourelos <jacob.mourelos@gmail.com>
 
 pkgname=doconv
-pkgver=0.1.3
+pkgver=0.1.4
 pkgrel=1
 pkgdesc='A tool for document file format conversion'
 arch=('any')

@@ -32,3 +32,9 @@ Release History
 
 * Add asciidoctor plugin.
 * Add doconv command to query available document formats.
+
+
+0.1.4 (2014-03-05)
+++++++++++++++++++
+
+* Preparations for native packaging for Ubuntu and Arch Linux.

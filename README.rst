@@ -8,9 +8,6 @@ doconv
 .. image:: https://travis-ci.org/jmourelos/doconv.png?branch=master
         :target: https://travis-ci.org/jmourelos/doconv
 
-.. image:: https://pypip.in/d/doconv/badge.png
-        :target: https://crate.io/packages/doconv?version=latest
-
 
 Convert AsciiDoc and DocBook files to DITA
 

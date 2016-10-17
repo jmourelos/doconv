@@ -50,4 +50,4 @@ git add pre_release_generated/
 git add HISTORY.rst doconv/__init__.py packaging/archlinux/build/PKGBUILD\
     packaging/ubuntu/12.10/build/build_doconv_deb_and_source.sh packaging/ubuntu/12.10/build/upload.txt
 
-git commit -m "prepare for release $version"
+git commit -m "Prepare for release $version"

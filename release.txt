@@ -1,0 +1,16 @@
+Quick notes for future releases
+-------------------------------
+
+0. make clean
+1. make test-all
+2. make pre-release
+3. git push origin master
+4. # Wait for Travis CI and readthedocs.io to finish the builds
+5. make release
+6. # Build locally the Arch Linux package
+7. # Update checksum in PKGBUILD
+8. git add ./packaging/archlinux/build/PKGBUILD
+9. git commit -m "Release version X.Y.Z"
+11. Update PKGBUILD in AUR repository (regenerate also the .SRCINFO contained in the repo)
+12. # Finally push the new release to the doconv repo:
+      git push --tags origin master

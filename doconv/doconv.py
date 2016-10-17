@@ -256,6 +256,8 @@ def parse_args():
 
     parser.add_argument('--version', action='version')
     subparsers = parser.add_subparsers(help='available doconv commands')
+    subparsers.required = True
+    subparsers.dest = 'command to be executed'
 
     # convert command
     parser_convert = subparsers.\
@@ -279,6 +281,8 @@ def parse_args():
     # list command
     parser_list = subparsers.add_parser('list', help='list doconv information')
     subparsers_list = parser_list.add_subparsers()
+    subparsers_list.required = True
+    subparsers_list.dest = 'formats to be listed'
 
     parser_list_input_formats = subparsers_list.\
         add_parser('input-formats',
@@ -302,6 +306,7 @@ def parse_args():
 
 def main():
     # parse CLI arguments
+    # TODO. Use something else but argparse
     args_tuple = parse_args()
     args_dic = vars(args_tuple)
 

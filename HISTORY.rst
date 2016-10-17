@@ -45,3 +45,9 @@ Release History
 
 * Fixed issue converting notes from AsciiDoc to DITA.
 * Added support for Python 3.4 and 3.5.
+
+
+0.1.6 (2016-10-17)
+++++++++++++++++++
+
+* Improve confusing error message under certain circumstances when using Python 3.

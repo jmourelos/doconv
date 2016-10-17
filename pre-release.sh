@@ -8,6 +8,7 @@ if [[ "$VIRTUAL_ENV" != "" ]]; then
     pip install -r requirements.txt
     pip install -r test-requirements.txt
     pip install -r release-requirements.txt
+    python setup.py install
 
     # generate supported format conversions graph for documentation
     py.test doconv/generate_conversions.py

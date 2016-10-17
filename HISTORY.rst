@@ -38,3 +38,10 @@ Release History
 ++++++++++++++++++
 
 * Preparations for native packaging for Ubuntu and Arch Linux.
+
+
+0.1.5 (2016-10-17)
+++++++++++++++++++
+
+* Fixed issue converting notes from AsciiDoc to DITA.
+* Added support for Python 3.4 and 3.5.

@@ -1,0 +1,36 @@
+
+== Admonition Blocks
+
+Admonition tests.
+
+
+[NOTE]
+====
+A NOTE admonition block
+====
+
+
+[CAUTION]
+====
+A CAUTION admonition block
+====
+
+
+[TIP]
+====
+A TIP admonition block
+====
+
+
+[WARNING]
+====
+A WARNING admonition block
+====
+
+
+[IMPORTANT]
+====
+An IMPORTANT admonition block
+====
+
+

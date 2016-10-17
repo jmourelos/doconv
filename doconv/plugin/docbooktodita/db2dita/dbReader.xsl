@@ -309,7 +309,7 @@
             epigraph|equation|example|fieldsynopsis|figure|formalpara|
             funcsynopsis|glosslist|important|indexterm|informalequation|
             informalexample|informalfigure|informaltable|itemizedlist|
-            literallayout|mediaobject|methodsynopsis|orderedlist|
+            literallayout|mediaobject|methodsynopsis|note|orderedlist|
             para|procedure|productionset|programlisting|
             programlistingco|remark|revhistory|screen|screenco|
             screenshot|segmentedlist|sidebar|simpara|simplelist|synopsis|

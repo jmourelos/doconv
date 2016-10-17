@@ -86,6 +86,21 @@ class TestConverter():
                                            self.generate_output_filename())
         assert_xml(converted_file)
 
+    def test_convert_admonitions_asciidoc_dita(self):
+        converter = Converter("asciidoc", "dita")
+        converted_file = converter.convert(self.get_sample("Admonitions.adoc"),
+                                           self.generate_output_filename())
+        assert_xml(converted_file)
+        with open(converted_file, 'r') as converted_fd:
+            converted_content = converted_fd.read()
+
+        assert 'A NOTE admonition block' in converted_content
+        assert 'A CAUTION admonition block' in converted_content
+        assert 'A TIP admonition block' in converted_content
+        assert 'A WARNING admonition block' in converted_content
+        assert 'An IMPORTANT admonition block' in converted_content
+
+
     def teardown(self):
         chdir(self.initial_dir)
         rmtree(self.tmp)

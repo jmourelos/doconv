@@ -11,7 +11,7 @@ help:
 	@echo "release - package and upload a release"
 	@echo "sdist - package"
 
-clean: clean-build clean-pyc
+clean: clean-build clean-pyc clean-test
 
 clean-build:
 	rm -fr build/
@@ -22,6 +22,9 @@ clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
+
+clean-test:
+	rm -fr .tox/
 
 lint:
 	flake8 doconv tests

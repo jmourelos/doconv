@@ -1,6 +1,6 @@
 # Top-level dependencies: tox, pytest, mock
 mock==1.0.1
 tox==1.6.1
-py==1.4.17
+py==1.4.31
 virtualenv==1.10.1
-pytest==2.4.2
+pytest==2.7.3

@@ -1,4 +1,4 @@
-doconv_version=0.1.6
+doconv_version=0.1.7
 
 build_out=/build_out
 

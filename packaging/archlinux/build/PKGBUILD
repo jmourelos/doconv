@@ -1,8 +1,8 @@
 # Maintainer: Jacob Mourelos <jacob.mourelos@gmail.com>
 
 pkgname=doconv
-pkgver=0.1.6
-pkgrel=3
+pkgver=0.1.7
+pkgrel=1
 pkgdesc='A tool for document file format conversion'
 arch=('any')
 url='https://github.com/jmourelos/doconv'

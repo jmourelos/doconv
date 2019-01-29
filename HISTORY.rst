@@ -51,3 +51,11 @@ Release History
 ++++++++++++++++++
 
 * Improve confusing error message under certain circumstances when using Python 3.
+
+
+0.1.7 (2019-01-29)
+++++++++++++++++++
+
+* Drop support for Python 2.6 and 3.3
+* Update release process
+* Fix bug preventing doconv to work with latest version of some dependencies

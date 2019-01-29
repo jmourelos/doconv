@@ -18,7 +18,7 @@ python:
 # see http://stackoverflow.com/questions/6278047/could-not-find-rails-0-amongst-gemloaderror
 before_install:
   - sudo apt-get update
-  - sudo apt-get install asciidoc rubygems
+  - sudo apt-get install asciidoc rubygems libxml2-utils
   - rvmsudo gem install asciidoctor
 ### command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install: pip install -r requirements.txt

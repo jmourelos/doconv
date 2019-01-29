@@ -11,7 +11,7 @@ if [[ "$VIRTUAL_ENV" != "" ]]; then
     python setup.py install
 
     # generate supported format conversions graph for documentation
-    py.test doconv/generate_conversions.py
+    py.test generate_conversions.py
     sed -i 's|plugin=|label=|g' conversions.dot
     mv conversions.dot pre_release_generated/
 

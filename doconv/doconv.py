@@ -118,14 +118,14 @@ class FormatManager(object):
     def get_input_formats(self):
         input_formats = []
         for node in self.graph.nodes():
-            if len(self.graph.successors(node)) != 0:
+            if len(list(self.graph.successors(node))) != 0:
                 input_formats.append(node)
         return input_formats
 
     def get_output_formats(self):
         output_formats = []
         for node in self.graph.nodes():
-            if len(self.graph.predecessors(node)) != 0:
+            if len(list(self.graph.predecessors(node))) != 0:
                 output_formats.append(node)
         return output_formats
 

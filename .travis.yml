@@ -8,10 +8,7 @@ python:
   - "3.6"
   - "3.5"
   - "3.4"
-  - "3.3"
   - "2.7"
-  - "2.6"
-  - "pypy"
 
 ### command to install external dependencies
 # using sudo instead of rvmsudo was causing some PATH problems:

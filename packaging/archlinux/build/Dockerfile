@@ -1,6 +1,7 @@
-FROM base/arch:latest
+FROM base/archlinux:latest
 
-RUN pacman -Sy
+RUN pacman -Sy --noconfirm
+
 
 # disable signature checking
 RUN sed -i 's/^SigLevel.*$/SigLevel = Never/g' /etc/pacman.conf
